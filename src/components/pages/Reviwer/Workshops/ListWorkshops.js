@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Grid,   } from "@material-ui/core";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Box from "@material-ui/core/Box";
  
 
 function ListWorkshops(){
     const [postData, setPostData] = useState([]);
     //const [postAllData, setPostAllData] = useState([]);
+    const history = useHistory();
 
     //take sorted data from db
     useEffect(() => {
@@ -19,6 +20,17 @@ function ListWorkshops(){
             alert(err)
         })
     }, []);
+
+    function DeleteItems(workshop_id){
+        
+        axios.post("http://localhost:8070/workshopsReviewer/deleteW", {workshop_id : workshop_id}).then(res => {
+            console.log(workshop_id)
+            alert(res.data)
+            history.go(0)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
    
 
@@ -38,6 +50,9 @@ function ListWorkshops(){
                 {/* <td>
                     <a href={`/deleteworshops/${props.record.workshop_id}`}>Delete</a>
                 </td> */}
+                <td>
+                    <button type="button"   onClick={() => DeleteItems(props.record.workshop_id)}>Delete</button>
+                </td>
             </tr>
         )
     }
@@ -79,7 +94,7 @@ function ListWorkshops(){
                     <tbody>
                         {List}            
                     </tbody>
-                </table>
+                </table><br></br>
             </div>
 
             <Grid container alignItems="center" justify="center">             

@@ -54,7 +54,7 @@ function ListResearches(){
                     <a href={`/deleteresearchers/${props.record.workshopid}`}>Delete</a>
                 </td> */}
                 <td>
-                    <button type="button" onClick={() => DeleteItems(props.record.researche_id)}>Delete</button>
+                    <button type="button"   onClick={() => DeleteItems(props.record.researche_id)}>Delete</button>
                 </td>
             </tr>
         )
